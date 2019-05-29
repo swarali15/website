@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta Arset="utf-8"/>
+<title>Javascript Quiz</title>
+
+<script>
+
+var curr = 0, test, test_status, question, choice, ch, A, B, C, correct = 0;
+
+var questions = [
+  [ "A salesman has the liberty to sell a hair dryer in his store at a price between Rs. 300 and Rs. 700. Profit earned by selling the hair dryer for Rs. 650 is twice the loss incurred when it is sold for Rs. 350. What is the cost price of the hair dryer?", "600", "450", "500", "B"],
+  ["Ronald and Elan are working on an assignment. Ronald takes 6 hours to type 32 pages on a computer, while Elan takes 5 hours to type 40 pages. How much time will they take, working together on two different computers to type an assignment of 110 pages?", '7hr 30min', '8hr', "8hr 15min", "C"],
+  ["Abstemious?", "moderate in appetite", "selfish", "to reject", "A"],
+  ["Admonish", "absolve", "nadir", "reprimand", "C"]
+  ];
+// this get function is short for the getElementById function  
+
+function get(x){
+  return document.getElementById(x);
+}
+function printQuestion()
+    {
+  test = get("test");
+  if(curr >= questions.length)
+  {
+    test.innerHTML = "<h2>You got "+correct+" of "+questions.length+" questions correct</h2>";
+    get("test_status").innerHTML = "Test completed";
+  }
+  get("test_status").innerHTML = "Question "+(curr+1)+" of "+questions.length;
+  question = questions[curr][0];
+  A = questions[curr][1];
+  B = questions[curr][2];
+  C = questions[curr][3];
+  test.innerHTML = "<h3>"+question+"</h3>";
+  // the += appends to the data we started on the line above
+  test.innerHTML += "<input type='radio' name='ch' value='A'> "+A+"<br>";
+  test.innerHTML += "<input type='radio' name='ch' value='B'> "+B+"<br>";
+  test.innerHTML += "<input type='radio' name='ch' value='C'> "+C+"<br><br>";
+  test.innerHTML += "<button onclick='checkAnswer()'>Submit Answer</button>";
+}
+function checkAnswer()
+    {
+  // use getElementsByName because we have an array which it will loop through
+  ch = document.getElementsByName("ch");
+  for(var i=0; i<ch.length; i++)
+  {
+    if(ch[i].checked)
+    {
+      choice = ch[i].value;
+    }
+  }
+  // checks if answer matches the correct choice
+  if(choice == questions[curr][4])
+  {
+    //each time there is a correct answer this value increases
+    correct++;
+  }
+  curr++;
+  printQuestion();
+}
+window.addEventListener("load", printQuestion, false);
+</script>
+</head>
+<body>
+<h2 id="test_status"></h2>
+<div id="test"></div>
+</body>
+</html>
